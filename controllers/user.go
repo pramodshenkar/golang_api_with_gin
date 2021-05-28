@@ -17,6 +17,15 @@ func (u *UserController) Signup(c *gin.Context) {
 		c.Abort()
 		return
 	}
+
+	result, _ := userModel.GetUserByEmail(data.Email)
+
+	if result.Email != "" {
+		c.JSON(403, gin.H{"message": "Email is already in use"})
+		c.Abort()
+		return
+	}
+
 	err := userModel.Signup(data)
 	if err != nil {
 		c.JSON(400, gin.H{"message": "Problem creating an account"})

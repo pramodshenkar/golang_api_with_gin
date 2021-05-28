@@ -25,3 +25,9 @@ func (u *UserModel) Signup(data forms.SignupUserCommand) error {
 	})
 	return err
 }
+
+func (u *UserModel) GetUserByEmail(email string) (user User, err error) {
+	collection := dbConnect.Use(databaseName, "user")
+	err = collection.Find(bson.M{"email": email}).One(&user)
+	return user, err
+}
