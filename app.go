@@ -22,6 +22,7 @@ func main() {
 
 		user := new(controllers.UserController)
 		v1.POST("/signup", user.Signup)
+		v1.POST("/login", user.Login)
 
 	}
 	router.NoRoute(func(c *gin.Context) {
